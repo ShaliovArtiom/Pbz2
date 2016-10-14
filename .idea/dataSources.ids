@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - pbzlab2@localhost" uuid="379b825c-4535-47de-a32e-5fd43c754069">
+    <database-info product="MySQL" version="5.7.15-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="pbzlab2"/>
+    <table name="kombinat" schema="" catalog="pbzlab2" type="TABLE">
+      <column name="idK" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nameK" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="adressK" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telephoneK" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FIOK" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="positionK" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="regeonK" sqlType="ENUM" precision="11" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="idK"/>
+    </table>
+    <table name="price" schema="" catalog="pbzlab2" type="TABLE">
+      <column name="idP" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="purchasePrice" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="costPrise" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+    <table name="product" schema="" catalog="pbzlab2" type="TABLE">
+      <column name="idP" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nameP" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gradeP" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1"/>
+      <column name="groupP" sqlType="ENUM" precision="20" scale="0" nullable="false" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="idP"/>
+    </table>
+    <table name="sclad" schema="" catalog="pbzlab2" type="TABLE">
+      <column name="idP" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="idK" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="numberP" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="dataP" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+    </table>
+  </data-source>
+</component>

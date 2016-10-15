@@ -2,8 +2,8 @@ package view;
 
 import model.TableModelPrice;
 import view.DialogPrice.AddDialogPrice;
-import view.DialogPrice.FindDialogPrice;
-import view.DialogPrice.RenameDialogPrice;
+import view.Dialog.FindDialog;
+import view.Dialog.RenameDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +18,9 @@ public class PriceTableFrame extends JFrame{
 
     private JFrame jFrame;
     private TableModelPrice tableModelPrice;
-    private FindDialogPrice findDialogPrice;
+    private FindDialog findDialog;
     private AddDialogPrice addDialogPrice;
-    private RenameDialogPrice renameDialogPrice;
+    private RenameDialog renameDialog;
     private JButton addButton;
     private JButton deleteButton;
     private JButton renameButton;
@@ -78,16 +78,15 @@ public class PriceTableFrame extends JFrame{
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                findDialogPrice = new FindDialogPrice(jFrame, tableModelPrice, "Delete");
-                findDialogPrice.setVisible(true);
+                findDialog = new FindDialog(jFrame, tableModelPrice, "Delete");
+                findDialog.setVisible(true);
             }
         });
         renameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                findDialogPrice = new FindDialogPrice(jFrame, tableModelPrice, "Rename");
-                findDialogPrice.setVisible(true);
-//                renameDialogPrice.setVisible(true);
+                findDialog = new FindDialog(jFrame, tableModelPrice, "Rename");
+                findDialog.setVisible(true);
             }
         });
     }

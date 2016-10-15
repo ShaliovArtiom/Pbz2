@@ -4,8 +4,10 @@
     <file url="file://$PROJECT_DIR$/src/main/java/Main.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/model/TableModelPrice.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/model/TableModelSclad.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/view/AddDialogSclad.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/view/ChoseFrame.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/Dialog/FindDialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/Dialog/RenameDialog.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/view/DialogPrice/AddDialogPrice.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/DialogSclad/AddDialogSclad.java" charset="UTF-8" />
   </component>
 </project>

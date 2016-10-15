@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Sclad {
 
+    private String idSclad;
     private String idProduct;
     private String idKombinat;
     private int numberProduct;
@@ -16,12 +17,21 @@ public class Sclad {
 
     public Object get(int columnIndex){
         switch(columnIndex){
-            case 0: return idProduct;
-            case 1: return idKombinat;
-            case 2: return numberProduct;
-            case 3: return data;
+            case 0: return idSclad;
+            case 1: return idProduct;
+            case 2: return idKombinat;
+            case 3: return numberProduct;
+            case 4: return data;
             default: return"";
         }
+    }
+
+    public String getIdSclad() {
+        return idSclad;
+    }
+
+    public void setIdSclad(String idSclad) {
+        this.idSclad = idSclad;
     }
 
     public String getIdProduct() {

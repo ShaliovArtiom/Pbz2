@@ -1,18 +1,20 @@
-package view.DialogPrice;
+package view.Dialog;
 
 import controller.MysqlOption;
 import model.TableModelPrice;
+import model.TableModelSclad;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class FindDialogPrice extends JDialog {
+public class FindDialog extends JDialog {
 
     private TableModelPrice tableModelPrice;
+    private TableModelSclad tableModelSclad;
     private JFrame owner;
-    private RenameDialogPrice renameDialogPrice;
+    private RenameDialog renameDialog;
     private JLabel idLable = new JLabel("Enter id");
     private JTextField idField = new JTextField(10);
     private JButton findButton = new JButton("Find");
@@ -21,7 +23,7 @@ public class FindDialogPrice extends JDialog {
     private Box boxButton = Box.createVerticalBox();
     private String string;
 
-    public FindDialogPrice(JFrame owner, TableModelPrice tableModelPrice, String string) {
+    public FindDialog(JFrame owner, TableModelPrice tableModelPrice, String string) {
         super(owner);
         this.setTitle(string + "dialog");
         this.setSize(150, 150);
@@ -31,7 +33,20 @@ public class FindDialogPrice extends JDialog {
         this.string = string;
         this.owner = owner;
         replaceButton(this);
-        initListeners();
+        initListenersPrice();
+    }
+
+    public FindDialog(JFrame owner, TableModelSclad tableModelSclad, String string) {
+        super(owner);
+        this.setTitle(string + "dialog");
+        this.setSize(150, 150);
+        this.setLocationRelativeTo(null);
+        this.tableModelSclad = tableModelSclad;
+        deleteButton = new JButton(string);
+        this.string = string;
+        this.owner = owner;
+        replaceButton(this);
+        initListenersSclad();
     }
 
     @Override
@@ -53,7 +68,7 @@ public class FindDialogPrice extends JDialog {
         dialog.add(boxButton);
     }
 
-    private void initListeners() {
+    private void initListenersPrice() {
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,8 +89,38 @@ public class FindDialogPrice extends JDialog {
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    renameDialogPrice = new RenameDialogPrice(owner, tableModelPrice);
-                    renameDialogPrice.setVisible(true);
+                    renameDialog = new RenameDialog(owner, tableModelPrice);
+                    renameDialog.setVisible(true);
+                    setVisible(false);
+                }
+            });
+        }
+    }
+
+
+    private void initListenersSclad() {
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModelSclad.filterId(idField.getText());
+                tableModelSclad.refresh();
+            }
+        });
+
+        if (Objects.equals(string, "Delete")) {
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    MysqlOption.getInstance().deleteSckladTable(tableModelSclad.getDisplayedScladList().get(0));
+                    tableModelSclad.fireTableDataChanged();
+                }
+            });
+        }else if(Objects.equals(string, "Rename")){
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    renameDialog = new RenameDialog(owner, tableModelSclad);
+                    renameDialog.setVisible(true);
                     setVisible(false);
                 }
             });

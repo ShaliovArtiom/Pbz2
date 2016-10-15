@@ -1,4 +1,4 @@
-package view;
+package view.DialogSclad;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import controller.MysqlOption;
@@ -19,6 +19,9 @@ public class AddDialogSclad extends JDialog {
 
     private TableModelSclad tableModelSclad;
     private MysqlOption mysqlOption = MysqlOption.getInstance();
+
+    private JLabel idScladLable = new JLabel("Ид склада: ");
+    private JTextField idScladField = new JTextField(10);
     private JLabel idProductLable = new JLabel("Ид продукта: ");
     private JTextField idProductField = new JTextField(10);
     private JLabel idKombinatLable = new JLabel("Ид комбината: ");
@@ -43,6 +46,7 @@ public class AddDialogSclad extends JDialog {
     @Override
     public void setVisible(boolean visible){
         if(visible) {
+            idScladField.setText("");
             idProductField.setText("");
             idKombinatField.setText("");
             numberProductField.setText("");
@@ -52,6 +56,8 @@ public class AddDialogSclad extends JDialog {
     }
 
     private void createButton(JDialog dialog){
+        boxButton.add(idScladLable);
+        boxButton.add(idScladField);
         boxButton.add(idProductLable);
         boxButton.add(idProductField);
         boxButton.add(idKombinatLable);
@@ -71,21 +77,17 @@ public class AddDialogSclad extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 Sclad sclad = new Sclad();
                 try {
+                    sclad.setIdSclad(idScladField.getText());
                     sclad.setIdProduct(idProductField.getText());
                     sclad.setIdKombinat(idKombinatField.getText());
 
                     Integer number = Integer.valueOf(numberProductField.getText());
                     sclad.setNumberProduct(number);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-                    Date data = sdf.parse(dataProductFiled.getText());
-
-//                    sclad.setData(data.getTime());
+                    sclad.setData(java.sql.Date.valueOf(dataProductFiled.getText()));
 
                 } catch (NumberFormatException e1) {
                     System.err.println("Неверный формат строки!");
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
                 }
 
                 mysqlOption.addScladTable(sclad);

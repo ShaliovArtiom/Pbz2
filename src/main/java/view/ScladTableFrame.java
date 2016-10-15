@@ -1,9 +1,10 @@
 package view;
 
 
-import controller.MysqlOption;
 import model.TableModelPrice;
 import model.TableModelSclad;
+import view.Dialog.FindDialog;
+import view.DialogSclad.AddDialogSclad;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,27 +17,32 @@ public class ScladTableFrame extends JFrame {
     private static final int DEFAULT_WIDHT = 800;
 
     private AddDialogSclad addDialogSclad;
-
+    private JFrame frame;
+    private TableModelSclad tableModelSclad;
+    private FindDialog findDialog;
     private JButton addButton;
     private JButton deleteButton;
+    private JButton renameButton;
     private Box buttonBox;
 
-    public ScladTableFrame(){
+    public ScladTableFrame() {
         this.setTitle("Sclad Table");
         this.setSize(DEFAULT_WIDHT, DEFAULT_HEIGHT);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        createButton();
-        replaceButton(this);
+        this.frame = this;
 
-        TableModelSclad tableModelSclad = new TableModelSclad();
+        tableModelSclad = new TableModelSclad();
         JTable table = new JTable(tableModelSclad);
         table.setPreferredSize(new Dimension(800, 600));
         JScrollPane jScrollPane = new JScrollPane(table);
         jScrollPane.setPreferredSize(new Dimension(400, 300));
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(jScrollPane);
+
+        createButton();
+        replaceButton(this);
 
         addDialogSclad = new AddDialogSclad(this, tableModelSclad);
         initListeners();
@@ -48,6 +54,8 @@ public class ScladTableFrame extends JFrame {
         buttonBox.add(addButton);
         buttonBox.add(Box.createVerticalStrut(10));
         buttonBox.add(deleteButton);
+        buttonBox.add(Box.createVerticalStrut(10));
+        buttonBox.add(renameButton);
 
         JPanel panel = new JPanel();
         panel.add(buttonBox);
@@ -57,6 +65,7 @@ public class ScladTableFrame extends JFrame {
     private void createButton() {
         addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
+        renameButton = new JButton("Rename");
     }
 
 
@@ -65,6 +74,20 @@ public class ScladTableFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addDialogSclad.setVisible(true);
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                findDialog = new FindDialog(frame, tableModelSclad, "Delete");
+                findDialog.setVisible(true);
+            }
+        });
+        renameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                findDialog = new FindDialog(frame, tableModelSclad, "Rename");
+                findDialog.setVisible(true);
             }
         });
     }

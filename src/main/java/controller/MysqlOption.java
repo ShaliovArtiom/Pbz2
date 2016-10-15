@@ -114,10 +114,11 @@ public class MysqlOption {
             resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Sclad sclad = new Sclad();
-                sclad.setIdProduct(resultSet.getString(1));
-                sclad.setIdKombinat(resultSet.getString(2));
-                sclad.setNumberProduct(resultSet.getInt(3));
-                sclad.setData(resultSet.getDate(4));
+                sclad.setIdSclad(resultSet.getString(1));
+                sclad.setIdProduct(resultSet.getString(2));
+                sclad.setIdKombinat(resultSet.getString(3));
+                sclad.setNumberProduct(resultSet.getInt(4));
+                sclad.setData(resultSet.getDate(5));
                 Storage.getIstance().addScladList(sclad);
             }
             statement.close();
@@ -130,14 +131,15 @@ public class MysqlOption {
     public void addScladTable(Sclad sclad){
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
-        query = "insert into sclad(idP, idK, numberP, dataP) values (?, ?, ?, ?);";
+        query = "insert into sclad(idS, idP, idK, numberP, dataP) values (?, ?, ?, ?, ?);";
         try {
             worker.openConnection();
             preparedStatement = worker.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, sclad.getIdProduct());
-            preparedStatement.setString(2, sclad.getIdKombinat());
-            preparedStatement.setInt(3, sclad.getNumberProduct());
-            preparedStatement.setDate(4, sclad.getData());
+            preparedStatement.setString(1, sclad.getIdSclad());
+            preparedStatement.setString(2, sclad.getIdProduct());
+            preparedStatement.setString(3, sclad.getIdKombinat());
+            preparedStatement.setInt(4, sclad.getNumberProduct());
+            preparedStatement.setString(5, sclad.getData().toString());
 
             preparedStatement.execute();
 
@@ -146,6 +148,45 @@ public class MysqlOption {
         }
         worker.closeConnection();
         Storage.getIstance().addScladList(sclad);
+    }
+
+    public void deleteSckladTable(Sclad sclad){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "delete LOW_PRIORITY from sclad WHERE idS = ?;";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, sclad.getIdSclad());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+        Storage.getIstance().getScladList().remove(sclad);
+    }
+
+    public void renameScladTable(Sclad sclad){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = " update sclad SET idP = ?, idK = ?, numberP = ?, dataP =? WHERE idS = ?";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, sclad.getIdProduct());
+            preparedStatement.setString(2, sclad.getIdKombinat());
+            preparedStatement.setInt(3, sclad.getNumberProduct());
+            preparedStatement.setString(4, sclad.getData().toString());
+            preparedStatement.setString(5, sclad.getIdSclad());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
     }
 
     public static MysqlOption getInstance() {

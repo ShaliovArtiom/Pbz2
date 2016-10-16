@@ -9,11 +9,7 @@ public class Sclad {
     private String idProduct;
     private String idKombinat;
     private int numberProduct;
-    private Date data;
-
-
-    public Sclad() {
-    }
+    private Date date;
 
     public Object get(int columnIndex){
         switch(columnIndex){
@@ -21,18 +17,14 @@ public class Sclad {
             case 1: return idProduct;
             case 2: return idKombinat;
             case 3: return numberProduct;
-            case 4: return data;
+            case 4: return date;
             default: return"";
         }
     }
 
-    public String getIdSclad() {
-        return idSclad;
-    }
+    public String getIdSclad() {return idSclad;}
 
-    public void setIdSclad(String idSclad) {
-        this.idSclad = idSclad;
-    }
+    public void setIdSclad(String idSclad) {this.idSclad = idSclad;}
 
     public String getIdProduct() {
         return idProduct;
@@ -58,11 +50,11 @@ public class Sclad {
         this.numberProduct = numberProduct;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDate() {
+        return date;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -2,6 +2,11 @@ package view;
 
 
 import controller.MysqlOption;
+import view.Dialog.ChoseOptionDialog;
+import view.TableFrame.KombinatTableFrame;
+import view.TableFrame.PriceTableFrame;
+import view.TableFrame.ProductTableFrame;
+import view.TableFrame.ScladTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +17,8 @@ public class ChoseFrame extends JFrame {
 
     private static final int DEFAULT_HEIGHT = 250;
     private static final int DEFAULT_WIDHT = 250;
+
+    private ChoseOptionDialog choseOptionDialog;
 
     private Box buttonBox;
     private JButton priceButton;
@@ -30,6 +37,10 @@ public class ChoseFrame extends JFrame {
 
         MysqlOption.getInstance().readTable(1);
         MysqlOption.getInstance().readTable(2);
+        MysqlOption.getInstance().readTable(3);
+        MysqlOption.getInstance().readTable(4);
+
+        choseOptionDialog = new ChoseOptionDialog(this);
     }
 
     private void replaceButton(JFrame frame) {
@@ -46,12 +57,24 @@ public class ChoseFrame extends JFrame {
         buttonBox.add(Box.createVerticalStrut(15));
         JPanel panel = new JPanel();
         frame.add(panel, BorderLayout.CENTER);
-        panel.add(buttonBox,"CENTER");
+        panel.add(buttonBox, "CENTER");
     }
 
     private void createButton() {
         productButton = new JButton("Показать таблицу 'продукт'");
+        productButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ProductTableFrame();
+            }
+        });
         kombinatButton = new JButton("Показать таблицу 'комбинат'");
+        kombinatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new KombinatTableFrame();
+            }
+        });
         scladButton = new JButton("Показать таблицу 'склад'");
         scladButton.addActionListener(new ActionListener() {
             @Override
@@ -61,10 +84,17 @@ public class ChoseFrame extends JFrame {
         });
         priceButton = new JButton("Показать таблицу 'закупка'");
         priceButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 new PriceTableFrame();
             }
         });
         optionOfTable = new JButton("Действия на таблицах");
+        optionOfTable.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                choseOptionDialog.setVisible(true);
+            }
+        });
     }
 }

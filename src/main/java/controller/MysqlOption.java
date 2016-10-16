@@ -1,11 +1,10 @@
 package controller;
 
 import Storage.Storage;
-import model.Price;
-import model.Sclad;
+import model.*;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
+import java.util.*;
 
 public class MysqlOption {
 
@@ -26,6 +25,16 @@ public class MysqlOption {
         if (number == 2) {
             query = "select * from sclad";
             readScladTableSQL();
+        }
+
+        if(number == 3){
+            query = "select * from product";
+            readProductTableSQL();
+        }
+
+        if(number == 4){
+            query = "select * from kombinat";
+            readKombinatTableSQL();
         }
 
     }
@@ -118,7 +127,7 @@ public class MysqlOption {
                 sclad.setIdProduct(resultSet.getString(2));
                 sclad.setIdKombinat(resultSet.getString(3));
                 sclad.setNumberProduct(resultSet.getInt(4));
-                sclad.setData(resultSet.getDate(5));
+                sclad.setDate(resultSet.getDate(5));
                 Storage.getIstance().addScladList(sclad);
             }
             statement.close();
@@ -131,7 +140,7 @@ public class MysqlOption {
     public void addScladTable(Sclad sclad){
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
-        query = "insert into sclad(idS, idP, idK, numberP, dataP) values (?, ?, ?, ?, ?);";
+        query = "insert into sclad(idS, idP, idK, numberP, dateP) values (?, ?, ?, ?, ?);";
         try {
             worker.openConnection();
             preparedStatement = worker.getConnection().prepareStatement(query);
@@ -139,7 +148,7 @@ public class MysqlOption {
             preparedStatement.setString(2, sclad.getIdProduct());
             preparedStatement.setString(3, sclad.getIdKombinat());
             preparedStatement.setInt(4, sclad.getNumberProduct());
-            preparedStatement.setString(5, sclad.getData().toString());
+            preparedStatement.setString(5, sclad.getDate().toString());
 
             preparedStatement.execute();
 
@@ -178,11 +187,205 @@ public class MysqlOption {
             preparedStatement.setString(1, sclad.getIdProduct());
             preparedStatement.setString(2, sclad.getIdKombinat());
             preparedStatement.setInt(3, sclad.getNumberProduct());
-            preparedStatement.setString(4, sclad.getData().toString());
+            preparedStatement.setString(4, sclad.getDate().toString());
             preparedStatement.setString(5, sclad.getIdSclad());
 
             preparedStatement.execute();
 
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+    }
+
+    private void readProductTableSQL() {
+        try {
+            worker.openConnection();
+            Statement statement = worker.getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setIdProduct(resultSet.getString(1));
+                product.setNameProduct(resultSet.getString(2));
+                product.setEnumGradeProduct(resultSet.getString(3));
+                product.setEnumGroupProduct(resultSet.getString(4));
+                Storage.getIstance().addProductList(product);
+            }
+            statement.close();
+            worker.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProductTable(Product product){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "insert into product(idP, nameP, gradeP, groupP) values (?, ?, ?, ?);";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, product.getIdProduct());
+            preparedStatement.setString(2, product.getNameProduct());
+            preparedStatement.setInt(3, product.getEnumGradeProduct().getIdEnum());
+            preparedStatement.setInt(4, product.getEnumGroupProduct().getIdEnum());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+        Storage.getIstance().addProductList(product);
+    }
+
+    public void deleteProductTable(Product product){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "delete LOW_PRIORITY from product WHERE idP = ?;";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, product.getIdProduct());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+        Storage.getIstance().getProductList().remove(product);
+    }
+
+    public void renameProductTable(Product product){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = " update product SET nameP = ?, gradeP =?, groupP =? WHERE idP = ?";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, product.getNameProduct());
+            preparedStatement.setInt(2, product.getEnumGradeProduct().getIdEnum());
+            preparedStatement.setInt(3, product.getEnumGroupProduct().getIdEnum());
+            preparedStatement.setString(4, product.getIdProduct());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+    }
+
+    private void readKombinatTableSQL() {
+        try {
+            worker.openConnection();
+            Statement statement = worker.getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Kombinat kombinat = new Kombinat();
+                kombinat.setIdKombinat(resultSet.getString(1));
+                kombinat.setNameKombinat(resultSet.getString(2));
+                kombinat.setAdressKombinat(resultSet.getString(3));
+                kombinat.setTelephoneKombinat(resultSet.getString(4));
+                kombinat.setFIOKombinat(resultSet.getString(5));
+                kombinat.setPositionKombinat(resultSet.getString(6));
+                kombinat.setEnumRegeonKombinat(resultSet.getString(7));
+                Storage.getIstance().addKombinatList(kombinat);
+            }
+            statement.close();
+            worker.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addKombinatTable(Kombinat kombinat){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "insert into kombinat(idK, nameK, adressK, telephoneK, FIOK, positionK, regeonK)" +
+                " values (?, ?, ?, ?, ?, ?, ?);";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, kombinat.getIdKombinat());
+            preparedStatement.setString(2, kombinat.getNameKombinat());
+            preparedStatement.setString(3, kombinat.getAdressKombinat());
+            preparedStatement.setString(4, kombinat.getTelephoneKombinat());
+            preparedStatement.setString(5, kombinat.getFIOKombinat());
+            preparedStatement.setString(6, kombinat.getPositionKombinat());
+            preparedStatement.setInt(7, kombinat.getEnumRegeonKombinat().getIdEnum());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+        Storage.getIstance().addKombinatList(kombinat);
+    }
+
+    public void deleteKombinatTable(Kombinat kombinat){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "delete LOW_PRIORITY from kombinat WHERE idK = ?;";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, kombinat.getIdKombinat());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+        Storage.getIstance().getKombinatList().remove(kombinat);
+    }
+
+
+    public void renameKombinatTable(Kombinat kombinat){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = " update kombinat SET nameK = ?, adressK =?, telephoneK =?, FIOK =?, positionK =?, regeonK =? WHERE idK = ?";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, kombinat.getNameKombinat());
+            preparedStatement.setString(2, kombinat.getAdressKombinat());
+            preparedStatement.setString(3, kombinat.getTelephoneKombinat());
+            preparedStatement.setString(4, kombinat.getFIOKombinat());
+            preparedStatement.setString(5, kombinat.getPositionKombinat());
+            preparedStatement.setInt(6, kombinat.getEnumRegeonKombinat().getIdEnum());
+            preparedStatement.setString(7, kombinat.getIdKombinat());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+    }
+
+    public void makePriceScladTableSQL(java.sql.Date date){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "select price.idP, sclad.idK, price.costPrise, price.purchasePrice, sclad.dataP from price, sclad where dataP = ?;";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, date.toString());
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                PriceSclad priceSclad = new PriceSclad();
+                priceSclad.setIdProduct(resultSet.getString(1));
+                priceSclad.setIdKombinat(resultSet.getString(2));
+                priceSclad.setCostPrice(resultSet.getInt(3));
+                priceSclad.setPurchasePrice(resultSet.getInt(4));
+                priceSclad.setDate(resultSet.getDate(5));
+                Storage.getIstance().addPriceScladList(priceSclad);
+            }
         } catch (SQLException e1) {
             e1.printStackTrace();
         }

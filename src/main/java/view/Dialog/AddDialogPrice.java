@@ -1,8 +1,8 @@
-package view.DialogPrice;
+package view.Dialog;
 
 import controller.MysqlOption;
 import model.Price;
-import model.TableModelPrice;
+import model.TableModel.TableModelPrice;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

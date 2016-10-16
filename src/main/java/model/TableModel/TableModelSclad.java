@@ -1,6 +1,7 @@
-package model;
+package model.TableModel;
 
 import Storage.Storage;
+import model.Sclad;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

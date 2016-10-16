@@ -1,19 +1,13 @@
-package view.DialogSclad;
+package view.Dialog;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import controller.MysqlOption;
-import model.Price;
 import model.Sclad;
-import model.TableModelSclad;
+import model.TableModel.TableModelSclad;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AddDialogSclad extends JDialog {
 
@@ -84,7 +78,7 @@ public class AddDialogSclad extends JDialog {
                     Integer number = Integer.valueOf(numberProductField.getText());
                     sclad.setNumberProduct(number);
 
-                    sclad.setData(java.sql.Date.valueOf(dataProductFiled.getText()));
+                    sclad.setDate(java.sql.Date.valueOf(dataProductFiled.getText()));
 
                 } catch (NumberFormatException e1) {
                     System.err.println("Неверный формат строки!");

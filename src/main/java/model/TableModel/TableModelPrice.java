@@ -1,6 +1,7 @@
-package model;
+package model.TableModel;
 
 import Storage.Storage;
+import model.Price;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class TableModelPrice extends AbstractTableModel {
     public String getColumnName(int columnIndex){
         switch(columnIndex){
             case 0: return "Ид";
-            case 1: return "Закупочная цена";
-            case 2: return "Рознечная цена";
+            case 1: return "Закупочная цена($)";
+            case 2: return "Рознечная цена($)";
         }
         return "";
     }

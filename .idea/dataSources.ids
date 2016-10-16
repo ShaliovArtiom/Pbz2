@@ -16,6 +16,7 @@
       <column name="positionK" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="regeonK" sqlType="ENUM" precision="11" scale="0" nullable="true" jdbcType="1"/>
       <primary-key name="PRIMARY" columns="idK"/>
+      <exported-key name="sclad_ibfk_2" table="sclad" schema="" catalog="pbzlab2" columns="idK"/>
     </table>
     <table name="price" schema="" catalog="pbzlab2" type="TABLE">
       <column name="idP" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
@@ -28,12 +29,16 @@
       <column name="gradeP" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1"/>
       <column name="groupP" sqlType="ENUM" precision="20" scale="0" nullable="false" jdbcType="1"/>
       <primary-key name="PRIMARY" columns="idP"/>
+      <exported-key name="sclad_ibfk_1" table="sclad" schema="" catalog="pbzlab2" columns="idP"/>
     </table>
     <table name="sclad" schema="" catalog="pbzlab2" type="TABLE">
+      <column name="idS" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="idP" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="idK" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
       <column name="numberP" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="dataP" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="dateP" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <foreign-key name="sclad_ibfk_1" columns="idP" ref-table="product" ref-schema="" ref-catalog="pbzlab2" ref-columns="idP" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="sclad_ibfk_2" columns="idK" ref-table="kombinat" ref-schema="" ref-catalog="pbzlab2" ref-columns="idK" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
   </data-source>
 </component>

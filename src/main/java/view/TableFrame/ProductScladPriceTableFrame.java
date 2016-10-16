@@ -1,29 +1,27 @@
 package view.TableFrame;
 
-import controller.MysqlOption;
-import model.TableModel.TableModelPrice;
 import model.TableModel.TableModelPriceSlad;
-import view.Dialog.AddDialogPrice;
-import view.Dialog.FindDialog;
+import model.TableModel.TableModelProductScladPrice;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PriceScladTableFrame extends JFrame{
+public class ProductScladPriceTableFrame extends JFrame {
+
     private static final int DEFAULT_HEIGHT = 600;
     private static final int DEFAULT_WIDHT = 800;
 
-    private TableModelPriceSlad tableModelPriceSlad;
+    private TableModelProductScladPrice tableModelProductScladPrice;
 
 
-    public PriceScladTableFrame() {
+    public ProductScladPriceTableFrame() {
         this.setTitle("Table");
         this.setSize(DEFAULT_WIDHT, DEFAULT_HEIGHT);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        tableModelPriceSlad = new TableModelPriceSlad();
-        JTable table = new JTable(tableModelPriceSlad);
+        tableModelProductScladPrice = new TableModelProductScladPrice();
+        JTable table = new JTable(tableModelProductScladPrice);
         table.setPreferredSize(new Dimension(800, 600));
         JScrollPane jScrollPane = new JScrollPane(table);
         jScrollPane.setPreferredSize(new Dimension(400, 300));

@@ -180,7 +180,7 @@ public class MysqlOption {
     public void renameScladTable(Sclad sclad){
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
-        query = " update sclad SET idP = ?, idK = ?, numberP = ?, dataP =? WHERE idS = ?";
+        query = " update sclad SET idP = ?, idK = ?, numberP = ?, dateP =? WHERE idS = ?";
         try {
             worker.openConnection();
             preparedStatement = worker.getConnection().prepareStatement(query);
@@ -370,7 +370,7 @@ public class MysqlOption {
     public void makePriceScladTableSQL(java.sql.Date date){
         DBWorker worker = DBWorker.getInstance();
         PreparedStatement preparedStatement = null;
-        query = "select price.idP, sclad.idK, price.costPrise, price.purchasePrice, sclad.dataP from price, sclad where dataP = ?;";
+        query = "select price.idP, sclad.idK, price.costPrise, price.purchasePrice, sclad.dateP from price, sclad where dateP = ?;";
         try {
             worker.openConnection();
             preparedStatement = worker.getConnection().prepareStatement(query);
@@ -391,6 +391,37 @@ public class MysqlOption {
         }
         worker.closeConnection();
     }
+
+
+    public void makeProductScladPriceTableSQL(java.sql.Date firstDate, java.sql.Date lastDate, String name){
+        DBWorker worker = DBWorker.getInstance();
+        PreparedStatement preparedStatement = null;
+        query = "select product.nameP, price.costPrise, price.purchasePrice, sclad.dateP from product, price, sclad " +
+                "where (nameP = ? and dateP between (?) and  (?));";
+        try {
+            worker.openConnection();
+            preparedStatement = worker.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, firstDate.toString());
+            preparedStatement.setString(3, lastDate.toString());
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                ProductScladPrice productScladPrice = new ProductScladPrice();
+                productScladPrice.setNameProduct(resultSet.getString(1));
+                productScladPrice.setPurchasePrice(resultSet.getInt(2));
+                productScladPrice.setCostPrice(resultSet.getInt(3));
+                productScladPrice.setDate(resultSet.getDate(4));
+
+                Storage.getIstance().addProudctScladPrice(productScladPrice);
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        worker.closeConnection();
+    }
+
+
 
     public static MysqlOption getInstance() {
         if (instance == null) {

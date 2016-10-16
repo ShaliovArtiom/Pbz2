@@ -13,6 +13,7 @@ public class Storage {
     private List<Kombinat> kombinatList = new ArrayList<>();
 
     private List<PriceSclad> priceScladList = new ArrayList<>();
+    private List<ProductScladPrice> productScladPriceList = new ArrayList<>();
 
 
     public void addPriceList(Price price) {priceList.add(price);}
@@ -21,6 +22,8 @@ public class Storage {
     public void addKombinatList(Kombinat kombinat) {kombinatList.add(kombinat);}
 
     public void addPriceScladList(PriceSclad priceSclad) {priceScladList.add(priceSclad);}
+    public void addProudctScladPrice(ProductScladPrice productScladPrice) {productScladPriceList.add(productScladPrice);}
+
 
     public static Storage getIstance(){
         if(istance == null) {
@@ -47,5 +50,9 @@ public class Storage {
 
     public List<PriceSclad> getPriceScladList() {
         return priceScladList;
+    }
+
+    public List<ProductScladPrice> getProductScladPriceList() {
+        return productScladPriceList;
     }
 }

@@ -30,7 +30,7 @@ public class AddDialogSclad extends JDialog {
     public AddDialogSclad(Frame owner, TableModelSclad tableModelSclad) {
         super(owner);
         this.setTitle("Add dialog Sclad");
-        this.setSize(300, 400);
+        this.setSize(300, 280);
         this.setLocationRelativeTo(null);
         this.tableModelSclad = tableModelSclad;
         createButton(this);
@@ -62,7 +62,9 @@ public class AddDialogSclad extends JDialog {
         boxButton.add(dataProductFiled);
         boxButton.add(addButton);
 
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void initListeners() {

@@ -9,6 +9,7 @@ import view.TableFrame.ProductTableFrame;
 import view.TableFrame.ScladTableFrame;
 
 import javax.swing.*;
+import javax.swing.text.BoxView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +58,7 @@ public class ChoseFrame extends JFrame {
         buttonBox.add(Box.createVerticalStrut(15));
         JPanel panel = new JPanel();
         frame.add(panel, BorderLayout.CENTER);
-        panel.add(buttonBox, "CENTER");
+        panel.add(buttonBox, BoxView.CENTER);
     }
 
     private void createButton() {

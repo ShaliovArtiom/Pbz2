@@ -8,6 +8,7 @@ import model.TableModel.TableModelProduct;
 import model.TableModel.TableModelSclad;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -61,7 +62,7 @@ public class RenameDialog extends JDialog{
     public RenameDialog(JFrame owner, TableModelPrice tableModelPrice) {
         super(owner);
         this.setTitle("Rename dialog");
-        this.setSize(300, 400);
+        this.setSize(300, 165);
         this.setLocationRelativeTo(null);
         this.tableModelPrice = tableModelPrice;
         replaceButtonPrice(this);
@@ -71,7 +72,7 @@ public class RenameDialog extends JDialog{
     public RenameDialog(JFrame owner, TableModelSclad tableModelSclad) {
         super(owner);
         this.setTitle("Rename dialog");
-        this.setSize(300, 400);
+        this.setSize(300, 250);
         this.setLocationRelativeTo(null);
         this.tableModelSclad = tableModelSclad;
         replaceButtonSclad(this);
@@ -92,7 +93,7 @@ public class RenameDialog extends JDialog{
     public RenameDialog(JFrame owner, TableModelKombinat tableModelKombinat) {
         super(owner);
         this.setTitle("Rename dialog");
-        this.setSize(300, 400);
+        this.setSize(300, 320);
         this.setLocationRelativeTo(null);
         this.tableModelKombinat = tableModelKombinat;
         initBoxKombinat();
@@ -119,6 +120,11 @@ public class RenameDialog extends JDialog{
             telephoneKombinatField.setText("");
             FIOKombinatField.setText("");
             positionKombinatField.setText("");
+        } else{
+            if(tableModelKombinat != null)tableModelKombinat.fireTableDataChanged();
+            if(tableModelSclad != null)tableModelSclad.fireTableDataChanged();
+            if(tableModelPrice != null)tableModelPrice.fireTableDataChanged();
+            if(tableModelProduct != null)tableModelProduct.fireTableDataChanged();
         }
     }
 
@@ -127,8 +133,11 @@ public class RenameDialog extends JDialog{
         boxButton.add(purchasePriceField);
         boxButton.add(costPriceLable);
         boxButton.add(costPriceField);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(renamButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void replaceButtonSclad(JDialog dialog) {
@@ -140,8 +149,11 @@ public class RenameDialog extends JDialog{
         boxButton.add(numberProductField);
         boxButton.add(dataProductLable);
         boxButton.add(dataProductFiled);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(renamButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void replaceButtonKombonat(JDialog dialog) {
@@ -157,8 +169,11 @@ public class RenameDialog extends JDialog{
         boxButton.add(positionKombinatField);
         boxButton.add(regionKombinatLable);
         boxButton.add(regionKombinatBox);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(renamButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void replaceButtonProduct(JDialog dialog) {
@@ -168,8 +183,11 @@ public class RenameDialog extends JDialog{
         boxButton.add(gradeProductBox);
         boxButton.add(groupProducLable);
         boxButton.add(groupProductBox);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(renamButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void initBoxProduct() {

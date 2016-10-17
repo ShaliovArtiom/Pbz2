@@ -5,6 +5,7 @@ import model.Product;
 import model.TableModel.TableModelProduct;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +27,7 @@ public class AddDialogProduct extends JDialog{
     public AddDialogProduct (JFrame owner, TableModelProduct tableModelProduct) {
         super(owner);
         this.setTitle("Add dialog price");
-        this.setSize(300, 400);
+        this.setSize(300, 250);
         this.setLocationRelativeTo(null);
         this.tableModelProduct = tableModelProduct;
         initBox();
@@ -59,8 +60,13 @@ public class AddDialogProduct extends JDialog{
         boxButton.add(gradeProductBox);
         boxButton.add(groupProducLable);
         boxButton.add(groupProductBox);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(addButton);
-        dialog.add(boxButton);
+
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
+
     }
 
     private void initListeners() {

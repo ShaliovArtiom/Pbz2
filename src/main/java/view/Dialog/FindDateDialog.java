@@ -5,6 +5,7 @@ import controller.MysqlOption;
 import view.TableFrame.PriceScladTableFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +21,7 @@ public class FindDateDialog  extends  JDialog{
     public FindDateDialog(JFrame owner) {
         super(owner);
         this.setTitle("find dialog");
-        this.setSize(150, 150);
+        this.setSize(200, 130);
         this.setLocationRelativeTo(null);
         replaceButton(this);
         initListener();
@@ -38,9 +39,12 @@ public class FindDateDialog  extends  JDialog{
         boxButton.add(dateLable);
         boxButton.add(dateField);
         optionBox.add(findButton);
-        boxButton.add(Box.createVerticalStrut(30));
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(optionBox);
-        dialog.add(boxButton);
+
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void initListener() {

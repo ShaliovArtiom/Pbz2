@@ -34,8 +34,8 @@ public class ChoseOptionDialog  extends JDialog{
         boxButton.add(productScladPriceButton);
 
         JPanel panel = new JPanel();
+        panel.add(boxButton);
         dialog.add(panel, BorderLayout.CENTER);
-        panel.add(boxButton, "CENTER");
     }
 
 

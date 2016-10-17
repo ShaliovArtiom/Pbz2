@@ -5,6 +5,7 @@ import model.Kombinat;
 import model.TableModel.TableModelKombinat;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,15 +27,13 @@ public class AddDialogKombinat extends JDialog {
     private JTextField positionKombinatField = new JTextField(10);
     private JLabel regionKombinatLable = new JLabel("Регион:");
     private JComboBox<String> regionKombinatBox;
-
-
     private JButton addButton = new JButton("Add");
     private Box boxButton = Box.createVerticalBox();
 
     public AddDialogKombinat(JFrame owner, TableModelKombinat tableModelKombinat) {
         super(owner);
         this.setTitle("Add dialog price");
-        this.setSize(300, 400);
+        this.setSize(300, 350);
         this.setLocationRelativeTo(null);
         this.tableModelKombinat = tableModelKombinat;
         initBox();
@@ -76,9 +75,11 @@ public class AddDialogKombinat extends JDialog {
         boxButton.add(positionKombinatField);
         boxButton.add(regionKombinatLable);
         boxButton.add(regionKombinatBox);
-
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(addButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
 

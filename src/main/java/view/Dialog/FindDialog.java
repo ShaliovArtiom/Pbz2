@@ -83,6 +83,11 @@ public class FindDialog extends JDialog {
     public void setVisible(boolean visible) {
         if (visible) {
             idField.setText("");
+        }else {
+            if(tableModelKombinat != null)tableModelKombinat.fireTableDataChanged();
+            if(tableModelSclad != null)tableModelSclad.fireTableDataChanged();
+            if(tableModelPrice != null)tableModelPrice.fireTableDataChanged();
+            if(tableModelProduct != null)tableModelProduct.fireTableDataChanged();
         }
         super.setVisible(visible);
     }

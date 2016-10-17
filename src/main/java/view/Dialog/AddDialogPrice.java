@@ -5,6 +5,7 @@ import model.Price;
 import model.TableModel.TableModelPrice;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +25,7 @@ public class AddDialogPrice extends JDialog {
     public AddDialogPrice(JFrame owner, TableModelPrice tableModelPrice) {
         super(owner);
         this.setTitle("Add dialog price");
-        this.setSize(300, 400);
+        this.setSize(300, 200);
         this.setLocationRelativeTo(null);
         this.tableModelPrice = tableModelPrice;
         replaceButton(this);
@@ -48,8 +49,11 @@ public class AddDialogPrice extends JDialog {
         boxButton.add(purchasePriceField);
         boxButton.add(costPriceLable);
         boxButton.add(costPriceField);
+        boxButton.add(Box.createVerticalStrut(10));
         boxButton.add(addButton);
-        dialog.add(boxButton);
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
 

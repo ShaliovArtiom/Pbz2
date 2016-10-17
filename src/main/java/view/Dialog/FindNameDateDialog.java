@@ -6,6 +6,7 @@ import view.TableFrame.PriceScladTableFrame;
 import view.TableFrame.ProductScladPriceTableFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,7 +28,7 @@ public class FindNameDateDialog extends JDialog {
     public FindNameDateDialog(JFrame owner) {
         super(owner);
         this.setTitle("find dialog");
-        this.setSize(300, 200);
+        this.setSize(400, 150);
         this.setLocationRelativeTo(null);
         replaceButton(this);
         initListener();
@@ -46,7 +47,7 @@ public class FindNameDateDialog extends JDialog {
         boxButton.add(nameLable);
         boxButton.add(nameField);
 
-        boxButton.add(Box.createVerticalStrut(30));
+        boxButton.add(Box.createVerticalStrut(10));
 
         dateBox.add(firstDateLable);
         dateBox.add(Box.createHorizontalStrut(5));
@@ -59,9 +60,12 @@ public class FindNameDateDialog extends JDialog {
         optionBox.add(findButton);
 
         boxButton.add(dateBox);
-        boxButton.add(Box.createVerticalStrut(30));
-        boxButton.add(optionBox);
-        dialog.add(boxButton);
+        boxButton.add(Box.createVerticalStrut(5));
+
+        JPanel panel = new JPanel();
+        panel.add(boxButton);
+        panel.add(optionBox, "CENTER");
+        dialog.add(panel, BorderLayout.CENTER);
     }
 
     private void initListener() {

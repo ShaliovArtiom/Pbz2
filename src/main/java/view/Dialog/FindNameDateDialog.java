@@ -2,7 +2,6 @@ package view.Dialog;
 
 import Storage.Storage;
 import controller.MysqlOption;
-import view.TableFrame.PriceScladTableFrame;
 import view.TableFrame.ProductScladPriceTableFrame;
 
 import javax.swing.*;
